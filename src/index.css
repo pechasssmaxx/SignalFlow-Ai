@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide system cursor only on mouse devices — keep normal cursor on touch */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+@layer base {
+
+  :root {
+    --background: 40 10% 95%;
+    --foreground: 0 0% 0%;
+
+    --card: 40 10% 93%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 40 10% 95%;
+    --popover-foreground: 0 0% 0%;
+
+    --primary: 145 70% 42%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 40 5% 88%;
+    --secondary-foreground: 0 0% 0%;
+
+    --muted: 40 5% 88%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 145 70% 42%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 80% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 78%;
+    --input: 0 0% 78%;
+    --ring: 0 0% 0%;
+
+    --radius: 0px;
+
+    --sidebar-background: 40 10% 93%;
+    --sidebar-foreground: 0 0% 0%;
+    --sidebar-primary: 145 70% 42%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 40 5% 88%;
+    --sidebar-accent-foreground: 0 0% 0%;
+    --sidebar-border: 0 0% 78%;
+    --sidebar-ring: 0 0% 0%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-mono antialiased;
+    cursor: default;
+  }
+
+  ::selection {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+}
+
+@layer components {
+  .corner-markers {
+    position: relative;
+  }
+  .corner-markers::before,
+  .corner-markers::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid hsl(var(--foreground));
+  }
+  .corner-markers::before {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+  }
+  .corner-markers::after {
+    top: 0;
+    right: 0;
+    border-left: none;
+    border-bottom: none;
+  }
+
+  .corner-markers-bottom {
+    position: relative;
+  }
+  .corner-markers-bottom::before,
+  .corner-markers-bottom::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid hsl(var(--foreground));
+  }
+  .corner-markers-bottom::before {
+    bottom: 0;
+    left: 0;
+    border-right: none;
+    border-top: none;
+  }
+  .corner-markers-bottom::after {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+  }
+
+  .data-label {
+    @apply text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-mono;
+  }
+
+  .data-value {
+    @apply text-sm font-mono font-bold;
+  }
+
+  .tech-border {
+    @apply border border-foreground/20;
+  }
+
+  .section-line {
+    @apply w-full h-px bg-foreground/15;
+  }
+
+  .marquee-track {
+    display: flex;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  .ticker-track {
+    display: flex;
+    animation: marquee 30s linear infinite;
+    width: max-content;
+  }
+
+  .ticker-track:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.blink {
+  animation: blink 1.2s step-end infinite;
+}
+
+@keyframes counter-tick {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}
+
+/* ── Hide scrollbar (mobile tab strip) ─────────── */
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* ── Custom scrollbar ──────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(var(--foreground) / 0.18); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(145, 70%, 42%);
+  box-shadow: 0 0 6px hsl(145, 70%, 42% / 0.5);
+}
+
+
+/* ── Waveform bar animation ────────────────────── */
+@keyframes wave-bar {
+  from { transform: scaleY(0.4); }
+  to   { transform: scaleY(1); }
+}
+
+/* ── Glitch flash ──────────────────────────────── */
+@keyframes glitch-in {
+  0%   { opacity: 0; clip-path: inset(40% 0 40% 0); transform: translateX(-4px); }
+  25%  { opacity: 1; clip-path: inset(0% 0 0% 0);  transform: translateX(2px); }
+  50%  { clip-path: inset(20% 0 20% 0); transform: translateX(-1px); }
+  75%  { clip-path: inset(0% 0 0% 0);  transform: translateX(0); }
+  100% { opacity: 1; clip-path: inset(0% 0 0% 0);  transform: translateX(0); }
+}
+
+.glitch-enter {
+  animation: glitch-in 0.18s ease-out forwards;
+}
