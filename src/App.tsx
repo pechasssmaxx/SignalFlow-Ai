@@ -7,6 +7,7 @@ import Index from "./pages/Index.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import TokenDetail from "./pages/TokenDetail.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import FAQ from "./pages/FAQ.tsx";
 import CustomCursor from "./components/CustomCursor.tsx";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/token/:id" element={<TokenDetail />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

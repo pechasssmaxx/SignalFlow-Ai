@@ -1,4 +1,23 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+
+const SoonLink = ({ label }: { label: string }) => {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <span
+      className="relative inline-flex items-center gap-2 text-sm text-muted-foreground/50 cursor-not-allowed select-none w-fit"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {label}
+      {hovered && (
+        <span className="text-[9px] uppercase tracking-[0.15em] font-bold font-mono border border-primary/40 text-primary px-1.5 py-0.5 leading-none">
+          Soon
+        </span>
+      )}
+    </span>
+  );
+};
 
 const Footer = () => {
   return (
@@ -22,17 +41,24 @@ const Footer = () => {
         <div>
           <span className="data-label mb-4 block">Resources</span>
           <div className="flex flex-col gap-2">
-            <span className="text-sm text-muted-foreground">Docs</span>
-            <span className="text-sm text-muted-foreground">API</span>
-            <span className="text-sm text-muted-foreground">FAQ</span>
+            <SoonLink label="Docs" />
+            <SoonLink label="API" />
+            <Link to="/faq" className="text-sm hover:text-muted-foreground transition-colors">FAQ</Link>
           </div>
         </div>
 
         <div>
           <span className="data-label mb-4 block">Socials</span>
           <div className="flex flex-col gap-2">
-            <span className="text-sm text-muted-foreground">X / Twitter</span>
-            <span className="text-sm text-muted-foreground">Discord</span>
+            <a
+              href="https://x.com/og_scopesol"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm hover:text-muted-foreground transition-colors"
+            >
+              X / Twitter
+            </a>
+            <span className="text-sm text-muted-foreground/50 cursor-not-allowed">Discord</span>
           </div>
         </div>
       </div>
